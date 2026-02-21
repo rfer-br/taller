@@ -57,7 +57,7 @@ public class PaymentCalculator {
             return this.amount;
         }
         public String getCurrency(){
-            return this.getCurrency();
+            return this.currency;
         }
         public PaymentStatus getStatus(){
             return this.status;
@@ -105,11 +105,10 @@ public class PaymentCalculator {
 
         // Total amount of successful payments
         public double getTotalAmountOfSuccessfulPayments(){
-            OptionalDouble avg = getAllPayments().stream()
+            return getAllPayments().stream()
                     .filter(p -> p.getStatus() == PaymentStatus.SUCCESS)
                     .mapToDouble(Payment::getAmount)
-                    .average();
-            return avg.orElse(0.0);
+                    .sum();
         }
 
         // Average amount of successful payments
